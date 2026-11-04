@@ -1,0 +1,13 @@
+[project]
+name = "trackly-backend"
+version = "0.1.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "fastapi[standard]>=0.120,<1.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.fastapi]
+entrypoint = "app.main:app"

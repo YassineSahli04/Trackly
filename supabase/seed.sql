@@ -1,0 +1,1 @@
+-- Add local-development-only data here. Required application data belongs in migrations.

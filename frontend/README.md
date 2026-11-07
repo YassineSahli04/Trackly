@@ -10,6 +10,8 @@ npx expo start
 ```
 
 Copy `.env.example` to `.env` and provide the Supabase project URL and publishable key.
+Set `EXPO_PUBLIC_API_URL` to the backend URL. When testing on a physical phone, use your
+computer's LAN IP instead of `localhost`.
 
 ## Structure
 

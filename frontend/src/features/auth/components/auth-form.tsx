@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
+import { Button } from '@/components/ui/button';
+import { TextField } from '@/components/ui/text-field';
 import { Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { supabase } from '@/lib/supabase';
@@ -86,83 +88,77 @@ export function AuthForm() {
 
   return (
     <View style={styles.form}>
-      <View style={[styles.modeSelector, { backgroundColor: theme.backgroundElement }]}>
+      <View style={[styles.modeSelector, { backgroundColor: theme.surfaceMuted }]}>
         <Pressable
           onPress={() => changeMode('signIn')}
-          style={[styles.modeButton, mode === 'signIn' && { backgroundColor: theme.background }]}>
-          <ThemedText>Sign in</ThemedText>
+          style={[styles.modeButton, mode === 'signIn' && { backgroundColor: theme.surface }]}>
+          <ThemedText type="label">Sign in</ThemedText>
         </Pressable>
         <Pressable
           onPress={() => changeMode('signUp')}
-          style={[styles.modeButton, mode === 'signUp' && { backgroundColor: theme.background }]}>
-          <ThemedText>Create account</ThemedText>
+          style={[styles.modeButton, mode === 'signUp' && { backgroundColor: theme.surface }]}>
+          <ThemedText type="label">Create account</ThemedText>
         </Pressable>
       </View>
 
       {mode === 'signUp' && (
-        <TextInput
+        <TextField
           autoCapitalize="none"
           autoComplete="username-new"
+          label="Username"
           onChangeText={setUsername}
           placeholder="Username"
-          placeholderTextColor={theme.textSecondary}
-          style={[styles.input, { borderColor: theme.backgroundSelected, color: theme.text }]}
           value={username}
         />
       )}
 
-      <TextInput
+      <TextField
         autoCapitalize="none"
         autoComplete="email"
         keyboardType="email-address"
+        label="Email"
         onChangeText={setEmail}
-        placeholder="Email"
-        placeholderTextColor={theme.textSecondary}
-        style={[styles.input, { borderColor: theme.backgroundSelected, color: theme.text }]}
+        placeholder="you@example.com"
         value={email}
       />
-      <TextInput
+      <TextField
         autoCapitalize="none"
         autoComplete={mode === 'signIn' ? 'current-password' : 'new-password'}
+        label="Password"
         onChangeText={setPassword}
         onSubmitEditing={mode === 'signIn' && !isDisabled ? submit : undefined}
         placeholder="Password"
-        placeholderTextColor={theme.textSecondary}
         secureTextEntry
-        style={[styles.input, { borderColor: theme.backgroundSelected, color: theme.text }]}
         value={password}
       />
 
       {mode === 'signUp' && (
-        <TextInput
+        <TextField
           autoCapitalize="none"
           autoComplete="new-password"
+          label="Confirm password"
           onChangeText={setPasswordConfirmation}
           onSubmitEditing={isDisabled ? undefined : submit}
           placeholder="Confirm password"
-          placeholderTextColor={theme.textSecondary}
           secureTextEntry
-          style={[styles.input, { borderColor: theme.backgroundSelected, color: theme.text }]}
           value={passwordConfirmation}
         />
       )}
 
       {message && (
-        <ThemedText style={[styles.message, isError && styles.error]}>{message}</ThemedText>
+        <ThemedText
+          type="caption"
+          style={{ color: isError ? theme.error : theme.success }}>
+          {message}
+        </ThemedText>
       )}
 
-      <Pressable
+      <Button
         disabled={isDisabled}
+        label={mode === 'signIn' ? 'Sign in' : 'Create account'}
+        loading={isSubmitting}
         onPress={submit}
-        style={[styles.primaryButton, isDisabled && styles.disabled]}>
-        {isSubmitting ? (
-          <ActivityIndicator color="#ffffff" />
-        ) : (
-          <ThemedText style={styles.primaryButtonText}>
-            {mode === 'signIn' ? 'Sign in' : 'Create account'}
-          </ThemedText>
-        )}
-      </Pressable>
+      />
     </View>
   );
 }
@@ -182,32 +178,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: Spacing.two,
     paddingVertical: Spacing.two,
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    fontSize: 16,
-  },
-  message: {
-    fontSize: 14,
-  },
-  error: {
-    color: '#c62828',
-  },
-  primaryButton: {
-    minHeight: 48,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: Spacing.two,
-    backgroundColor: '#208AEF',
-    paddingHorizontal: Spacing.four,
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-  primaryButtonText: {
-    color: '#ffffff',
   },
 });

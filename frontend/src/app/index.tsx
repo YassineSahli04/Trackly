@@ -1,75 +1,39 @@
-import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Spacing } from '@/constants/theme';
+import { Screen } from '@/components/ui/screen';
 import { useAuth } from '@/features/auth/auth-context';
-import { AuthForm } from '@/features/auth/components/auth-form';
+import { AuthScreen } from '@/features/auth/components/auth-screen';
+import { DashboardHome } from '@/features/dashboard/components/dashboard-home';
+import { OnboardingFlow } from '@/features/onboarding/onboarding-flow';
+import { useTheme } from '@/hooks/use-theme';
 
 export default function HomeScreen() {
+  const theme = useTheme();
   const { isLoading, session, signOut } = useAuth();
 
   if (isLoading) {
     return (
-      <ThemedView style={styles.centered}>
-        <ActivityIndicator />
-      </ThemedView>
+      <Screen contentStyle={styles.centered} scroll={false}>
+        <ActivityIndicator color={theme.primary} />
+      </Screen>
     );
   }
 
-  return (
-    <ThemedView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.container}>
-        <SafeAreaView style={styles.content}>
-          <ThemedText type="title">Trackly</ThemedText>
+  if (!session) return <AuthScreen />;
 
-          {session ? (
-            <>
-              <ThemedText>
-                Signed in as {session.user.user_metadata.username ?? session.user.email}
-              </ThemedText>
-              <Pressable style={styles.signOutButton} onPress={signOut}>
-                <ThemedText>Sign out</ThemedText>
-              </Pressable>
-            </>
-          ) : (
-            <>
-              <ThemedText>Track your goals and activities.</ThemedText>
-              <AuthForm />
-            </>
-          )}
-        </SafeAreaView>
-      </KeyboardAvoidingView>
-    </ThemedView>
+  const username = session.user.user_metadata.username;
+  const displayName = typeof username === 'string' ? username : (session.user.email ?? 'there');
+
+  return (
+    <OnboardingFlow onSignOut={signOut}>
+      <DashboardHome displayName={displayName} onSignOut={signOut} />
+    </OnboardingFlow>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   centered: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  content: {
-    flex: 1,
-    width: '100%',
-    maxWidth: 420,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: Spacing.four,
-    padding: Spacing.four,
-  },
-  signOutButton: {
-    borderWidth: 1,
-    borderColor: '#808080',
-    borderRadius: Spacing.two,
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.two,
   },
 });

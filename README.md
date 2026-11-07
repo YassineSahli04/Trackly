@@ -16,9 +16,12 @@ npx supabase start
 
 ```bash
 cd backend
+cp .env.example .env
 uv sync
 uv run fastapi dev
 ```
+
+Set the local Supabase URL and secret key in `backend/.env` before starting the API.
 
 ### Frontend
 

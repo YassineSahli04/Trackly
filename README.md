@@ -36,3 +36,21 @@ To stop the local Supabase services:
 ```bash
 npx supabase stop
 ```
+
+## Continuous integration
+
+Pull requests validate the frontend, backend, and database. A successful push to `main` repeats
+validation, deploys pending Supabase migrations, deploys the backend to Railway, and then publishes
+an Expo preview update.
+
+Before enabling preview publishing:
+
+1. Add `EXPO_TOKEN` to the repository's GitHub Actions secrets.
+2. Add `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`, and `SUPABASE_PROJECT_ID` to the
+   repository's GitHub Actions secrets.
+3. Add a Railway project token as the `RAILWAY_TOKEN` GitHub Actions secret and the backend
+   service ID as the `RAILWAY_SERVICE_ID` repository variable.
+4. Set `SUPABASE_URL` and `SUPABASE_SECRET_KEY` in the Railway backend service.
+5. Add `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, and
+   `EXPO_PUBLIC_API_URL` to the Expo `preview` environment.
+6. Configure EAS Update after choosing the Expo SDK version used by testers.

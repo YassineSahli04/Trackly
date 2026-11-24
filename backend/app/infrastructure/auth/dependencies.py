@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from uuid import UUID
 
 from fastapi import Depends, HTTPException, status
@@ -6,14 +5,10 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from supabase import AsyncClient
 from supabase_auth.errors import AuthApiError
 
+from app.auth.principal import CurrentUser
 from app.core.supabase_auth import get_supabase_auth
 
 bearer_scheme = HTTPBearer(auto_error=False)
-
-
-@dataclass(frozen=True)
-class CurrentUser:
-    id: UUID
 
 
 async def get_current_user(

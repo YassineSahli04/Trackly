@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from app.categories.schemas import CategoryTemplate, CategoryTemplateListResponse
+from app.modules.categories.schemas import CategoryTemplate, CategoryTemplateListResponse
 
 
 class CategoryTemplateReader(Protocol):

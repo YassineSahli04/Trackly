@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.categories.models import CategoryTemplateModel
+from app.modules.categories.models import CategoryTemplateModel
 from app.core.exceptions import DataAccessError
 
 

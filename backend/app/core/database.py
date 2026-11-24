@@ -5,7 +5,8 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from app.auth.dependencies import CurrentUser, get_current_user
+from app.auth.principal import CurrentUser
+from app.infrastructure.auth.dependencies import get_current_user
 from app.core.exceptions import DataAccessError
 
 

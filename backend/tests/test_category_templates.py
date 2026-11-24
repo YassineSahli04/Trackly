@@ -4,9 +4,10 @@ from uuid import UUID
 import pytest
 from fastapi.testclient import TestClient
 
-from app.auth.dependencies import CurrentUser, get_current_user
-from app.categories.dependencies import get_category_template_service
-from app.categories.schemas import CategoryTemplateListResponse
+from app.auth.principal import CurrentUser
+from app.infrastructure.auth.dependencies import get_current_user
+from app.modules.categories.dependencies import get_category_template_service
+from app.modules.categories.schemas import CategoryTemplateListResponse
 from app.core.supabase_auth import get_supabase_auth
 from app.main import create_app
 

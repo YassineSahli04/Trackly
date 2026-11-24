@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.categories.router import router as categories_router
+from app.modules.categories.router import router as categories_router
 
 api_router = APIRouter(prefix="/api/v1")
 api_router.include_router(categories_router)

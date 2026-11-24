@@ -1,8 +1,8 @@
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.categories.repository import CategoryTemplateRepository
-from app.categories.service import CategoryTemplateService
+from app.modules.categories.repository import CategoryTemplateRepository
+from app.modules.categories.service import CategoryTemplateService
 from app.core.database import get_user_database_session
 
 

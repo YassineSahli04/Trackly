@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
 
-from app.auth.dependencies import get_current_user
-from app.categories.dependencies import get_category_template_service
-from app.categories.schemas import CategoryTemplateListResponse
-from app.categories.service import CategoryTemplateService
+from app.infrastructure.auth.dependencies import get_current_user
+from app.modules.categories.dependencies import get_category_template_service
+from app.modules.categories.schemas import CategoryTemplateListResponse
+from app.modules.categories.service import CategoryTemplateService
 
 router = APIRouter(
     prefix="/category-templates",

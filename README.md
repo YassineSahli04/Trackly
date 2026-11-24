@@ -21,7 +21,8 @@ uv sync
 uv run fastapi dev
 ```
 
-Set the local Supabase URL and secret key in `backend/.env` before starting the API.
+Set the local Supabase URL, publishable key, and database URL in `backend/.env` before starting the
+API.
 
 ### Frontend
 
@@ -50,7 +51,8 @@ Before enabling preview publishing:
    repository's GitHub Actions secrets.
 3. Add a Railway project token as the `RAILWAY_TOKEN` GitHub Actions secret and the backend
    service ID as the `RAILWAY_SERVICE_ID` repository variable.
-4. Set `SUPABASE_URL` and `SUPABASE_SECRET_KEY` in the Railway backend service.
+4. Set `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `DATABASE_URL`, and `DATABASE_SSL=true` in the
+   Railway backend service.
 5. Add `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, and
    `EXPO_PUBLIC_API_URL` to the Expo `preview` environment.
 6. Configure EAS Update after choosing the Expo SDK version used by testers.

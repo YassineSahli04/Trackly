@@ -3,7 +3,11 @@ name = "trackly-backend"
 version = "0.1.0"
 requires-python = ">=3.13,<3.14"
 dependencies = [
+    "asyncpg>=0.32.0",
     "fastapi[standard]>=0.120,<1.0",
+    "pydantic-settings>=2.16.2",
+    "sqlalchemy[asyncio]>=2.1.8",
+    "supabase>=2.34.1",
 ]
 
 [tool.uv]
